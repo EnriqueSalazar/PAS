@@ -1,0 +1,122 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar ProductosPSAs"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{productosPSAMB.editar}"/>
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataProductosPSAs" value="#{productosPSAMB.allLazyProductosPSAs}"
+                         var="productosPSA" editable="true" ajax="true" royKey="#{productosPSA.id}"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" widgetVar="productosPSAsTable"
+                         paginatorPosition="top" autoUpdate="true" lazy="true">
+                <f:facet name="header">ProductosPSAs</f:facet>
+                <p:column headerText="Id" exportable="false">
+                    <h:outputText value="#{productosPSA.id}"/>
+                    <f:facet name="footer" style="left">
+                        <!--   <p:commandButton value="Nuevo" id="ajax"
+                                            actionListener="#{productosPSAMB.buttonCrear}"
+                                            styleClass="ui-priority-primary" ajax="true"/>
+                     -->
+                        <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                         icon="ui-icon-disk" ajax="false" actionListener="#{productosPSAMB.CSVExport}"/>
+                    </f:facet>
+                </p:column>
+                <p:column headerText="Fecha">
+
+                    <h:outputText value="#{productosPSA.timeStamp}"/>
+
+                </p:column>
+                <p:column headerText="Vigencia">
+
+                    <h:outputText value="#{productosPSA.vigencia}"/>
+
+                </p:column>
+
+                <p:column style="width:30px; float:center" exportable="false">
+                    <!--   <p:commandButton icon="ui-icon-search"
+                                        action="index?faces-redirect=true" />-->
+                    <p:button icon="ui-icon-search" outcome="editarProductosPSA">
+                        <f:param name="id" value="#{productosPSA.id}"/>
+                    </p:button>
+
+                </p:column>
+                <p:column style="width:30px; float:center" exportable="false">
+                    <!--   <p:commandButton icon="ui-icon-search"
+                                        action="index?faces-redirect=true" />-->
+                    <p:button icon="ui-icon-heart" outcome="checkProductosPSA">
+                        <f:param name="id" value="#{productosPSA.id}"/>
+                    </p:button>
+
+                </p:column>
+
+                <!--<p:column style="width:22px; center;" exportable="false">-->
+                <!--<p:rowEditor/>-->
+
+                <!--</p:column>-->
+                <!--<p:column style="width:30px; float:center" exportable="false">-->
+                <!--<p:commandButton icon="ui-icon-trash"-->
+                <!--actionListener="#{productosPSAMB.buttonEliminar}" update="@form"-->
+                <!--oncomplete="PF('productosPSAsTable').filter();"/>-->
+
+                <!--</p:column>-->
+                <!--<p:ajax event="rowEdit" listener="#{productosPSAMB.buttonGuardar}"-->
+                <!--update=":form:msgs"/>-->
+                <!--<p:ajax event="rowEditCancel" listener="#{productosPSAMB.onRowCancel}"-->
+                <!--update=":form:msgs"/>-->
+
+            </p:dataTable>
+            <p:growl id="growl" life="10000" showDetail="true"/>
+            <!-- <p:commandButton value="Reset"
+                              actionListener="#{productosPSAMB.buttonReset}"
+                              styleClass="ui-priority-primary" ajax="true"/>-->
+        </h:form>
+
+        <p:separator/>
+        <h:form id="uploadForm" enctype="multipart/form-data">
+            <p:selectOneMenu value="#{uploaderMB.vigencia}">
+                <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                <f:selectItem itemLabel="2015" itemValue="2015"/>
+                <f:selectItem itemLabel="2016" itemValue="2016"/>
+                <f:selectItem itemLabel="2017" itemValue="2017"/>
+                <f:selectItem itemLabel="2018" itemValue="2018"/>
+            </p:selectOneMenu>
+            <p:fileUpload id="primeUpload" value="#{uploaderMB.uploadFile}" mode="simple" ajax="false"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{uploaderMB.productosPSAUpload}"/>
+        </h:form>
+        <p:tooltip id="uploadTip" for="uploadForm"
+                   trackMouse="true">
+            <h:outputText value="Cargar archivo plano con la estructura:" escape="false"/>
+            <br/>
+            <h:outputText
+                    value="Opción|Modalidad|ProductosPSA|Duración"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value="REEMPLAZA TODOS LOS REGISTROS - Debe ir encabezado."
+                    escape="false"/>
+            <br/>
+        </p:tooltip>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+
+    </ui:define>
+</ui:composition>
+</html>

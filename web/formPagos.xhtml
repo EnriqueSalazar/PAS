@@ -1,0 +1,711 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <h:form styleClass="form-horizontal" id="formPago">
+        <p:dataTable id="dataPagos" value="#{pagoMB.lazyPagos}" var="pago"
+                     editable="true" ajax="true" rowKey="#{pago.id}" scrollable="true"
+                     scrollWidth="100%" rows="10" paginator="true"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15" style="table-layout: auto" lazy="true">
+            <f:facet name="header">
+                Plan de Pagos
+            </f:facet>
+
+            <p:ajax event="rowEdit" listener="#{pagoMB.buttonGuardar}"
+                    process="@all"/>
+
+            <p:ajax event="rowEditCancel" listener="#{pagoMB.onRowCancel}"/>
+
+            <p:columnGroup type="header">
+                <p:row>
+                    <p:column rowspan="2" headerText=" " style="width:10px"/>
+                    <p:column rowspan="2" headerText=" " style="width:30px"/>
+
+                    <!--<p:column rowspan="2" headerText="Id" style="width:50px"/>-->
+                    <!--<p:column rowspan="2" headerText="Contrato" style="width:50px"/>-->
+
+                    <p:column rowspan="2" headerText="Fuente" style="width:50px"/>
+                    <p:column rowspan="2" headerText="Aporte" style="width:50px"/>
+
+                    <p:column colspan="4" headerText="Vigencia" style="width:200px"/>
+                    <p:column colspan="12" headerText="2015" style="width:600px"/>
+                    <p:column colspan="12" headerText="2016" style="width:600px"/>
+                    <p:column colspan="12" headerText="2017" style="width:600px"/>
+                    <p:column colspan="12" headerText="2018" style="width:600px"/>
+
+                </p:row>
+                <p:row>
+                    <p:column headerText="2015" style="width:50px"/>
+                    <p:column headerText="2016" style="width:50px"/>
+                    <p:column headerText="2017" style="width:50px"/>
+                    <p:column headerText="2018" style="width:50px"/>
+                    <p:column headerText="Ene" style="width:50px"/>
+                    <p:column headerText="Feb" style="width:50px"/>
+                    <p:column headerText="Mar" style="width:50px"/>
+                    <p:column headerText="Abr" style="width:50px"/>
+                    <p:column headerText="May" style="width:50px"/>
+                    <p:column headerText="Jun" style="width:50px"/>
+                    <p:column headerText="Jul" style="width:50px"/>
+                    <p:column headerText="Ago" style="width:50px"/>
+                    <p:column headerText="Sep" style="width:50px"/>
+                    <p:column headerText="Oct" style="width:50px"/>
+                    <p:column headerText="Nov" style="width:50px"/>
+                    <p:column headerText="Dic" style="width:50px"/>
+                    <p:column headerText="Ene" style="width:50px"/>
+                    <p:column headerText="Feb" style="width:50px"/>
+                    <p:column headerText="Mar" style="width:50px"/>
+                    <p:column headerText="Abr" style="width:50px"/>
+                    <p:column headerText="May" style="width:50px"/>
+                    <p:column headerText="Jun" style="width:50px"/>
+                    <p:column headerText="Jul" style="width:50px"/>
+                    <p:column headerText="Ago" style="width:50px"/>
+                    <p:column headerText="Sep" style="width:50px"/>
+                    <p:column headerText="Oct" style="width:50px"/>
+                    <p:column headerText="Nov" style="width:50px"/>
+                    <p:column headerText="Dic" style="width:50px"/>
+                    <p:column headerText="Ene" style="width:50px"/>
+                    <p:column headerText="Feb" style="width:50px"/>
+                    <p:column headerText="Mar" style="width:50px"/>
+                    <p:column headerText="Abr" style="width:50px"/>
+                    <p:column headerText="May" style="width:50px"/>
+                    <p:column headerText="Jun" style="width:50px"/>
+                    <p:column headerText="Jul" style="width:50px"/>
+                    <p:column headerText="Ago" style="width:50px"/>
+                    <p:column headerText="Sep" style="width:50px"/>
+                    <p:column headerText="Oct" style="width:50px"/>
+                    <p:column headerText="Nov" style="width:50px"/>
+                    <p:column headerText="Dic" style="width:50px"/>
+                    <p:column headerText="Ene" style="width:50px"/>
+                    <p:column headerText="Feb" style="width:50px"/>
+                    <p:column headerText="Mar" style="width:50px"/>
+                    <p:column headerText="Abr" style="width:50px"/>
+                    <p:column headerText="May" style="width:50px"/>
+                    <p:column headerText="Jun" style="width:50px"/>
+                    <p:column headerText="Jul" style="width:50px"/>
+                    <p:column headerText="Ago" style="width:50px"/>
+                    <p:column headerText="Sep" style="width:50px"/>
+                    <p:column headerText="Oct" style="width:50px"/>
+                    <p:column headerText="Nov" style="width:50px"/>
+                    <p:column headerText="Dic" style="width:50px"/>
+
+                </p:row>
+            </p:columnGroup>
+            <p:column>
+                <p:rowEditor/>
+            </p:column>
+            <p:column>
+                <p:commandButton icon="ui-icon-trash"
+                                 actionListener="#{pagoMB.buttonEliminar}">
+                    <p:confirm header="Confirmación"
+                               message="Seguro que desea eliminar?" icon="ui-icon-alert"/>
+                </p:commandButton>
+            </p:column>
+            <!--<p:column>
+                <h:outputText value="#{pago.id}"/>
+            </p:column>
+            <p:column>
+                <h:outputText value="#{pago.parent}"/>
+            </p:column>-->
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.fuente}"/>
+                    </f:facet>
+                    <!--          <f:facet name="input">
+                                  <p:inputText id="modelInputFuente" value="#{pago.fuente}"/>
+                              </f:facet>-->
+                    <f:facet name="input">
+                        <p:selectOneMenu value="#{pago.fuente}" style="width:100%">
+                            <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                            <f:selectItems value="#{fuenteMB.fuenteList}"
+                                           var="fuente" itemLabel="#{fuente}" itemValue="#{fuente}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.aporte}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAporte" value="#{pago.aporte}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.vigencia2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputVigencia2015"
+                                     value="#{pago.vigencia2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.vigencia2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputVigencia2016"
+                                     value="#{pago.vigencia2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.vigencia2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputVigencia2017"
+                                     value="#{pago.vigencia2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.vigencia2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputVigencia2018"
+                                     value="#{pago.vigencia2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.enero2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputEnero2015" value="#{pago.enero2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.febrero2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputFebrero2015"
+                                     value="#{pago.febrero2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.marzo2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputMarzo2015" value="#{pago.marzo2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.abril2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAbril2015" value="#{pago.abril2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.mayo2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputMayo2015" value="#{pago.mayo2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.junio2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputJunio2015" value="#{pago.junio2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.julio2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputJulio2015" value="#{pago.julio2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.agosto2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAgosto2015"
+                                     value="#{pago.agosto2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.septiembre2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputSeptiembre2015"
+                                     value="#{pago.septiembre2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.octubre2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputOctubre2015"
+                                     value="#{pago.octubre2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.noviembre2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputNoviembre2015"
+                                     value="#{pago.noviembre2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.diciembre2015}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputDiciembre2015"
+                                     value="#{pago.diciembre2015}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.enero2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputEnero2016" value="#{pago.enero2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.febrero2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputFebrero2016"
+                                     value="#{pago.febrero2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.marzo2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputMarzo2016" value="#{pago.marzo2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.abril2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAbril2016" value="#{pago.abril2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.mayo2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputMayo2016" value="#{pago.mayo2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.junio2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputJunio2016" value="#{pago.junio2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.julio2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputJulio2016" value="#{pago.julio2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.agosto2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAgosto2016"
+                                     value="#{pago.agosto2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.septiembre2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputSeptiembre2016"
+                                     value="#{pago.septiembre2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.octubre2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputOctubre2016"
+                                     value="#{pago.octubre2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.noviembre2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputNoviembre2016"
+                                     value="#{pago.noviembre2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.diciembre2016}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputDiciembre2016"
+                                     value="#{pago.diciembre2016}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.enero2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputEnero2017" value="#{pago.enero2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.febrero2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputFebrero2017"
+                                     value="#{pago.febrero2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.marzo2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputMarzo2017" value="#{pago.marzo2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.abril2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAbril2017" value="#{pago.abril2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.mayo2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputMayo2017" value="#{pago.mayo2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.junio2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputJunio2017" value="#{pago.junio2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.julio2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputJulio2017" value="#{pago.julio2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.agosto2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAgosto2017"
+                                     value="#{pago.agosto2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.septiembre2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputSeptiembre2017"
+                                     value="#{pago.septiembre2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.octubre2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputOctubre2017"
+                                     value="#{pago.octubre2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.noviembre2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputNoviembre2017"
+                                     value="#{pago.noviembre2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.diciembre2017}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputDiciembre2017"
+                                     value="#{pago.diciembre2017}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.enero2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputEnero2018" value="#{pago.enero2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.febrero2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputFebrero2018"
+                                     value="#{pago.febrero2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.marzo2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputMarzo2018" value="#{pago.marzo2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.abril2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAbril2018" value="#{pago.abril2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.mayo2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputMayo2018" value="#{pago.mayo2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.junio2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputJunio2018" value="#{pago.junio2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.julio2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputJulio2018" value="#{pago.julio2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.agosto2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputAgosto2018"
+                                     value="#{pago.agosto2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.septiembre2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputSeptiembre2018"
+                                     value="#{pago.septiembre2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.octubre2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputOctubre2018"
+                                     value="#{pago.octubre2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.noviembre2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputNoviembre2018"
+                                     value="#{pago.noviembre2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{pago.diciembre2018}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputDiciembre2018"
+                                     value="#{pago.diciembre2018}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <f:facet name="footer">
+                <p:commandButton value="Crear" id="ajaxPago"
+                                 actionListener="#{pagoMB.buttonCrear}"
+                                 styleClass="ui-priority-primary" ajax="true"
+                                 process=":mainAccordion">
+                    <f:attribute name="pId" value="#{contratoMB.contrato.id}"/>
+                </p:commandButton>
+            </f:facet>
+        </p:dataTable>
+        <p:confirmDialog global="true" showEffect="fade"
+                         hideEffect="explode">
+            <p:commandButton value="Si" type="button"
+                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            <p:commandButton value="No" type="button"
+                             styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+        </p:confirmDialog>
+
+    </h:form>
+</ui:composition>
+
+
+
+
+

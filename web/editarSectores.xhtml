@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Etapas"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+        <!--*************** Empieza un formulario 1 ******************************-->
+        <h:form id="form1">
+            <p:growl id="msgs1" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataSectores" value="#{listaMB.dataSectores}"
+                         var="lista" editable="true" ajax="true" rowKey="#{lista.id}"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100,500" widgetVar="sectoresTable"
+                         paginatorPosition="top" autoUpdate="true">
+                <f:facet name="header">Sectores</f:facet>
+                <p:column headerText="Id" exportable="false">
+                    <h:outputText value="#{lista.id}"/>
+                    <f:facet name="footer" style="left">
+                        <p:commandButton value="Nuevo" id="ajax1"
+                                         actionListener="#{listaMB.buttonCrearSector}"
+                                         styleClass="ui-priority-primary" ajax="true"/>
+                        <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                         icon="ui-icon-disk" ajax="false">
+                            <l:dataExporter source="dataSectores" fileType="csv" fileName="sectores"
+                                            fileOptions="#{listaMB.csvExportOptions}"/>
+                        </p:commandButton>
+
+                    </f:facet>
+                </p:column>
+                <p:column headerText="Sector">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{lista.valor}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputSector" value="#{lista.valor}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column style="width:22px; center;" exportable="false">
+                    <p:rowEditor/>
+
+                </p:column>
+                <p:column style="width:30px; float:center" exportable="false">
+                    <p:commandButton icon="ui-icon-trash"
+                                     actionListener="#{listaMB.buttonEliminar}" update="@form"
+                                     oncomplete="PF('sectoresTable').filter();"/>
+
+                </p:column>
+                <p:ajax event="rowEdit" listener="#{listaMB.buttonGuardar}"
+                        update=":form1:msgs1"/>
+                <p:ajax event="rowEditCancel" listener="#{listaMB.onRowCancel}"
+                        update=":form1:msgs1"/>
+
+            </p:dataTable>
+            <p:growl id="growl" life="10000" showDetail="true"/>
+        </h:form>
+
+        <p:separator/>
+        <h:form id="uploadForm1" enctype="multipart/form-data">
+            <p:fileUpload id="primeUpload1" value="#{uploaderMB.uploadFile}" mode="simple" ajax="false"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{uploaderMB.sectorUpload}"/>
+        </h:form>
+        <p:tooltip id="uploadTip" for="uploadForm1"
+
+                   trackMouse="true">
+            <h:outputText value="Cargar archivo plano con la estructura:" escape="false"/>
+            <br/>
+            <h:outputText
+                    value="Sector (Única columna)"
+                    escape="false"/>
+            <br/>
+            <h:outputText value="REEMPLAZA TODOS LOS REGISTROS - Debe ir encabezado." escape="false"/>
+            <br/>
+        </p:tooltip>
+        <p:separator/>
+
+
+
+
+
+    </ui:define>
+</ui:composition>
+</html>

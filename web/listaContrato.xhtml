@@ -1,0 +1,214 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="#{msg['page.title.lista.articulos']}"/>
+    </ui:define>
+
+    <f:metadata>
+        <!--        <f:event type="preRenderView" listener="#{contratoMB.reset}"/>
+                <f:event type="preRenderView" listener="#{listaMB.editar}"/>-->
+
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <style>
+            .ui-datatable-odd {
+                background: none repeat scroll 0 0 #F2F5F9;
+            }
+        </style>
+        <h:form rendered="#{identityMB.loggedIn}">
+            <p:dataTable value="#{contratoMB.allLazyContratos}"
+                         resizableColumns="true" var="contrato" selectionMode="single"
+                         selection="#{contrato}" rowKey="#{contrato.id}"
+                         rowSelectListener="editarContrato" widgetVar="contratosTable"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" style="heigth:100%" lazy="true">
+
+                <p:column style="width:16px">
+                    <p:rowToggler/>
+                </p:column>
+
+                <p:column headerText="Contrato" style="width:66px" filterBy="#{contrato.id}" filterMatchMode="contains">
+                    <p:link outcome="editarContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.id}"/>
+                        <f:param name="id" value="#{contrato.id}"/>
+                    </p:link>
+
+                </p:column>
+
+                <p:column headerText="#{msg['label.contrato.descripcion']}" filterBy="#{contrato.descripcion}"
+                          filterMatchMode="contains">
+                    <p:link outcome="editarContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.descripcion}"/>
+                        <f:param name="id" value="#{contrato.id}"/>
+                    </p:link>
+                    <f:facet name="footer" style="left">
+                        <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                         icon="ui-icon-disk" ajax="false" actionListener="#{contratoMB.CSVExport}"/>
+                    </f:facet>
+                </p:column>
+
+                <p:column headerText="#{msg['label.contrato.sector']}"
+                          style="text-align: center; width:128px;"
+                          filterBy="#{contrato.sector}" filterMatchMode="exact" filterOptions="#{listaMB.sectorOption}">
+                    <!-- <f:facet name="filter">
+                         <p:selectOneMenu onchange="PF('contr atosTable').filter()">
+                             <f:selectItem itemLabel="Seleccione uno" itemValue="#{null}"
+                                           noSelectionOption="true"/>
+                             <f:selectItems value="#{listaMB.sectorStringLista}"/>
+                         </p:selectOneMenu>
+                     </f:facet>-->
+                    <p:link outcome="editarContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.sector}"/>
+                        <f:param name="id" value="#{contrato.id}"/>
+                    </p:link>
+                </p:column>
+
+                <p:column headerText="#{msg['label.contrato.postulacion']}"
+                          style="text-align: center; width:128px;"
+                          filterBy="#{contrato.postulacion}" filterMatchMode="exact"
+                          filterOptions="#{listaMB.postulacionOption}">
+                    <!-- <f:facet name="filter">
+                         <p:selectOneMenu onchange="PF('contr atosTable').filter()">
+                             <f:selectItem itemLabel="Seleccione uno" itemValue="#{null}"
+                                           noSelectionOption="true"/>
+                             <f:selectItems value="#{listaMB.sectorStringLista}"/>
+                         </p:selectOneMenu>
+                     </f:facet>-->
+                    <p:link outcome="editarContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.postulacion}"/>
+                        <f:param name="id" value="#{contrato.id}"/>
+                    </p:link>
+                </p:column>
+
+                <p:column headerText="Valor"
+                          style="text-align: center; width:124px"
+                        >
+                    <p:link outcome="editarContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.valor}" style="display:block;">
+                            <f:convertNumber type="currency" currencySymbol="$" />
+                        </h:outputText>
+                        <f:param name="id" value="#{contrato.id}"/>
+                    </p:link>
+                </p:column>
+
+                <p:column headerText="Código"
+                          style="text-align: center; width:124px"
+                          filterBy="#{contrato.codigoContrato}" filterMatchMode="contains">
+                    <p:link outcome="editarContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.codigoContrato}"/>
+                        <f:param name="id" value="#{contrato.id}"/>
+                    </p:link>
+                </p:column>
+
+
+                <!--
+                                <p:column headerText="#{msg['label.contrato.duracion']}"
+                                          style="width:77px">
+                                    <p:link outcome="editarContrato"
+                                            style="text-align: right; display:block;text-decoration: none;">
+                                        <h:outputText value="#{contrato.duracion}"/>
+                                        <f:param name="id" value="#{contrato.id}"/>
+                                    </p:link>
+                                </p:column>
+                -->
+
+
+                <!--                <p:column headerText="#{msg['label.contrato.modalidad']}"
+                                          style="width:135px">
+                                    <p:link outcome="editarContrato"
+                                            style="text-align: center; display:block;text-decoration: none;">
+                                        <h:outputText value="#{contrato.modalidad}"/>
+                                        <f:param name="id" value="#{contrato.id}"/>
+                                    </p:link>
+                                </p:column>-->
+
+
+                <!--                <p:column headerText="#{msg['label.contrato.fechaRef']}"
+                                          style="width:182px">
+                                    <p:link outcome="editarContrato"
+                                            style="text-align: center; display:block;text-decoration: none;">
+                                        <h:outputText value="#{contrato.referencia}"/>
+                                        <f:param name="id" value="#{contrato.id}"/>
+                                    </p:link>
+                                </p:column>-->
+
+
+                <p:column headerText="Fecha" style="width:77px">
+                    <p:link outcome="editarContrato"
+                            style="text-align: center; display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.fechaRef}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                        <f:param name="id" value="#{contrato.id}"/>
+                    </p:link>
+                </p:column>
+
+
+                <p:rowExpansion>
+                    <!-- 					<p:inputTextarea rows="4" autoResize="false" readonly="true" -->
+                    <!-- 						value="#{contrato.descripcion}" style="width:100%" /> -->
+                    <h:outputText value="#{contrato.descripcion}" style="display:block;"/>
+                    <h:outputText value="#{contrato.postulacion}" style="display:block;"/>
+                    <h:outputText value="#{contrato.valor}" style="display:block;">
+                        <f:convertNumber type="currency" currencySymbol="$" />
+
+                        <!--
+                                                <f:convertNumber pattern="0"/>
+                        -->
+                    </h:outputText>
+
+                </p:rowExpansion>
+
+            </p:dataTable>
+
+
+            <!--            <h:panelGrid columns="1">
+                            <p:commandButton action="#{contratoMB.actualizar}"
+                                             value="#{msg['button.actualizar']}" styleClass="btn btn-success"/>
+                        </h:panelGrid>-->
+
+        </h:form>
+        <p:separator/>
+        <h:form id="uploadForm" enctype="multipart/form-data">
+            <p:fileUpload id="primeUpload" value="#{uploaderMB.uploadFile}" mode="simple" ajax="false"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{uploaderMB.contratoUpload}"/>
+        </h:form>
+        <p:tooltip id="uploadTip" for="uploadForm"
+
+                   trackMouse="true">
+            <h:outputText value="Cargar archivo plano con la estructura:" escape="false"/>
+            <br/>
+            <h:outputText
+                    value="Contrato|Sector|Postulacion|Codigocontrato|Duracion|Modalidad|Referencia|FechaRef|Descripcion"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value="Reemplaza los registros con id de contrato conocido y crea nuevos en caso que el id sea 0."
+                    escape="false"/>
+            <br/>
+            <h:outputText value="Debe ir encabezado." escape="false"/>
+            <br/>
+        </p:tooltip>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+        <!--
+                <h:messages/>
+        -->
+    </ui:define>
+</ui:composition>
+</html>

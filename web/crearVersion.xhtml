@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Etapas"/>
+    </ui:define>
+
+    <f:metadata>
+
+
+    </f:metadata>
+
+    <ui:define name="content">
+        <!--*************** Empieza un formulario 1 ******************************-->
+        <h:form styleClass="form-horizontal" id="formPago">
+            <h:inputText value="#{contratoMB.cCambio}" />
+            <h:commandButton value="Enviar" action="#{contratoMB.createVersion}" />
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>
+</html>

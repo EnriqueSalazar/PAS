@@ -1,0 +1,114 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:p="http://primefaces.org/ui">
+
+
+    <div class="logo">
+        <!--    	<img src="resources/img/logo_joe.png" alt="#{msg['label.logo.joe']}" title="#{msg['label.logo.joe']}" /> -->
+
+    </div>
+
+    <p:panelGrid columns="2" layout="grid">
+        <p:outputPanel>
+            <h1 class="title">
+                <h:outputText value="#{msg['app.title']}"/>
+            </h1>
+        </p:outputPanel>
+        <p:outputPanel style="text-align: right;">
+            <h:outputText value="Conectado como "
+                          rendered="#{identityMB.loggedIn}"/>
+            <h:outputText value="#{identityMB.email}"
+                          rendered="#{identityMB.loggedIn}"/>
+            <!-- 			<h:outputText value="#{identityMB.userProfile}" -->
+            <!-- 				rendered="#{identityMB.loggedIn}" /> -->
+            <!-- 			<h:graphicImage value="#{identityMB.userImage}" -->
+            <!-- 				rendered="#{identityMB.loggedIn}" /> -->
+            <h:outputText value="No conectado"
+                          rendered="#{not identityMB.loggedIn}"/>
+
+            <p:outputPanel rendered="#{not identityMB.loggedIn}">
+                <p:link value="Entrar" href="#{identityMB.loginUrl}"/>
+            </p:outputPanel>
+
+            <p:outputPanel rendered="#{identityMB.loggedIn}">
+                <p:link id="sign_out_link" value="Salir"
+                        href="#{identityMB.logoutUrl}"/>
+            </p:outputPanel>
+        </p:outputPanel>
+    </p:panelGrid>
+
+
+    <h:form rendered="#{identityMB.loggedIn}">
+
+        <p:menubar>
+            <p:submenu label="Contratos">
+                <p:menuitem value="Lista" url="listaContrato.jsf?active=lista"
+                            icon="ui-icon-document"
+                            class="#{empty param.active || param.active == 'lista' ? 'active' : ''}"/>
+                <p:menuitem value="Agregar" url="agregarContrato.jsf?active=incluir"
+                            icon="ui-icon-arrowrefresh-1-w" ajax="false"/>
+            </p:submenu>
+            <p:submenu label="Reportes">
+                <p:menuitem value="Seguimiento Hitos"
+                            url="editarSeguimiento.jsf?active=seguimiento" icon="ui-icon-document"
+                            class="#{empty param.active || param.active == 'seguimiento' ? 'active' : ''}"/>
+          <p:menuitem value="Seguimiento Productos PSA"
+                            url="editarSeguimientoPSA.jsf?active=seguimientoPSA" icon="ui-icon-document"
+                            class="#{empty param.active || param.active == 'seguimientoPSA' ? 'active' : ''}"/>
+            </p:submenu>
+            <p:submenu label="Administración">
+                <p:submenu label="Parámetros">
+
+                    <p:menuitem value="Editar Etapas"
+                                url="editarEtapas.jsf?active=etapas" icon="ui-icon-document"
+                                class="#{empty param.active || param.active == 'etapas' ? 'active' : ''}"/>
+                    <p:menuitem value="Editar Sectores"
+                                url="editarSectores.jsf?active=sectores" icon="ui-icon-document"
+                                class="#{empty param.active || param.active == 'listas' ? 'active' : ''}"/>
+                    <p:menuitem value="Editar Postulaciones - Intervenciones"
+                                url="editarPostulaciones.jsf?active=postulaciones" icon="ui-icon-document"
+                                class="#{empty param.active || param.active == 'listas' ? 'active' : ''}"/>
+                    <p:menuitem value="Editar Productos PND"
+                                url="editarProductosPND.jsf?active=productospnd" icon="ui-icon-document"
+                                class="#{empty param.active || param.active == 'listas' ? 'active' : ''}"/>
+                    <p:menuitem value="Editar Divipola"
+                                url="editarDivipola.jsf?active=divipola" icon="ui-icon-document"
+                                class="#{empty param.active || param.active == 'divipola' ? 'active' : ''}"/>
+                    <p:menuitem value="Editar Fuentes"
+                                url="editarFuentes.jsf?active=fuente" icon="ui-icon-document"
+                                class="#{empty param.active || param.active == 'divipola' ? 'active' : ''}"/>
+                </p:submenu>
+
+                <p:menuitem value="Editar Pagos"
+                            url="editarPagos.jsf?active=pagos" icon="ui-icon-document"
+                            class="#{empty param.active || param.active == 'pagos' ? 'active' : ''}"/>
+                <p:menuitem value="Editar Productos"
+                            url="editarProductos.jsf?active=productos" icon="ui-icon-document"
+                            class="#{empty param.active || param.active == 'productos' ? 'active' : ''}"/>
+                <p:menuitem value="Editar Regionalizacion"
+                            url="editarRegionalizacion.jsf?active=regionalizacion" icon="ui-icon-document"
+                            class="#{empty param.active || param.active == 'regionalizacion' ? 'active' : ''}"/>
+
+            </p:submenu>
+            <!--<p:submenu label="Integración">-->
+                <!--<p:submenu label="Sistemas" icon="ui-icon-extlink">-->
+                    <!--<p:submenu label="PrimeFaces" icon="ui-icon-heart">-->
+                        <!--<p:menuitem value="Home" url="http://www.primefaces.org"-->
+                                    <!--icon="ui-icon-home"/>-->
+                        <!--<p:menuitem value="Docs"-->
+                                    <!--url="http://www.primefaces.org/documentation"-->
+                                    <!--icon="ui-icon-document"/>-->
+                        <!--<p:menuitem value="Download"-->
+                                    <!--url="http://www.primefaces.org/downloads"-->
+                                    <!--icon="ui-icon-arrowthick-1-s"/>-->
+                        <!--<p:menuitem value="Support"-->
+                                    <!--url="http://www.primefaces.org/support" icon="ui-icon-wrench"/>-->
+                    <!--</p:submenu>-->
+                <!--</p:submenu>-->
+                <!--<p:menuitem value="Otros"/>-->
+            <!--</p:submenu>-->
+        </p:menubar>
+    </h:form>
+</ui:fragment>

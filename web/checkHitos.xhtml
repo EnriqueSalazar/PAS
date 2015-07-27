@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Hitos"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{hitoMB.editar}"/>
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+        <style type="text/css">
+
+            .red {
+                background-color: #ff7e76;
+                background-image: none;
+            }
+
+            .normal {
+                background-color: #ffffff;
+                background-image: none;
+            }
+        </style>
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataHitos" value="#{hitoMB.allLazyCheckHitos}"
+                         var="hito" editable="true" ajax="true" rowKey="#{hito.id}"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" widgetVar="hitosTable"
+                         paginatorPosition="top" autoUpdate="true" lazy="true"
+                         rowStyleClass="#{hito.deltaTCC lt 0 or hito.deltaSig lt 0 ? 'red' :  'normal'}"
+                    >
+                <f:facet name="header">Hitos</f:facet>
+                <p:columnGroup type="header">
+                    <p:row>
+                        <p:column rowspan="2" headerText="Contrato"/>
+
+                        <p:column colspan="3" headerText="Publicación de TCC"/>
+                        <p:column colspan="3" headerText="Firma del contrato"/>
+
+                    </p:row>
+                    <p:row>
+                        <p:column headerText="Real"/>
+                        <p:column headerText="Planeado"/>
+                        <p:column headerText="Delta"/>
+                        <p:column headerText="Real"/>
+                        <p:column headerText="Planeado"/>
+                        <p:column headerText="Delta"/>
+                    </p:row>
+                </p:columnGroup>
+                <p:column headerText="Contrato">
+
+                    <h:outputText value="#{hito.contrato}"/>
+
+                </p:column>
+                <p:column headerText="Publicación de TCC">
+
+                    <h:outputText value="#{hito.TCCpub}"/>
+
+                </p:column>
+
+                <p:column headerText="Publicación de TCC">
+
+                    <h:outputText value="#{hito.TCC1}"/>
+
+                </p:column>
+
+                <p:column headerText="Publicación de TCC">
+
+                    <h:outputText value="#{hito.deltaTCC}"
+                                  />
+
+
+                </p:column>
+                <p:column headerText="Firma del contrato">
+
+                    <h:outputText value="#{hito.contratoSig}"/>
+
+                </p:column>
+                <p:column headerText="Firma del contrato">
+
+                    <h:outputText value="#{hito.sig1}"/>
+
+                </p:column>
+                <p:column headerText="Firma del contrato">
+
+                    <h:outputText value="#{hito.deltaSig}"/>
+
+                </p:column>
+
+
+            </p:dataTable>
+            <p:growl id="growl" life="10000" showDetail="true"/>
+            <!-- <p:commandButton value="Reset"
+                              actionListener="#{hitoMB.buttonReset}"
+                              styleClass="ui-priority-primary" ajax="true"/>-->
+        </h:form>
+
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+        <h:panelGrid columns="1">
+            <p:button id="lnkHidden" value="Volver" outcome="editarSeguimiento.jsf">
+            </p:button>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>

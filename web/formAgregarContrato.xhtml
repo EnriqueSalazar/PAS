@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+            <h:form styleClass="form-horizontal" id="form">
+                <p:growl id="growl" life="10000" showDetail="true" autoUpdate="true"/>
+                <p:panelGrid columns="3" layout="grid" cellpadding="5"
+                             style="border: none !important">
+                    <h:panelGroup>
+                        <div class="control-group">
+                            <p:outputLabel for="descripcion"
+                                           value="#{msg['label.contrato.descripcion']}"/>
+
+                            <div class="controls">
+                                <p:inputTextarea rows="4" cols="45" id="descripcion"
+                                                 autoResize="false" value="#{contratoMB.contrato.descripcion}"
+                                                 label="#{msg['label.contrato.descripcion']}" required="true"
+                                                 styleClass="input-large">
+                                </p:inputTextarea>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <div class="control-group">
+                            <p:outputLabel for="sector"
+                                           value="#{msg['label.contrato.sector']}"/>
+
+                            <div class="controls">
+
+                                <!--								<p:autoComplete id="sector" dropdown="true"
+                                                                    forceSelection="true" value="#{contratoMB.contrato.sector}"
+                                                                    completeMethod="#{contratoMB.sectorsList}" />-->
+                                <p:autoComplete id="sector" dropdown="true" title="Seleccione un sector"
+                                                forceSelection="true" value="#{contratoMB.contrato.sector}"
+                                                completeMethod="#{listaMB.sectorsDropdown}"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <p:outputLabel for="postulacion"
+                                           value="#{msg['label.contrato.postulacion']}"/>
+
+                            <div class="controls">
+                                <p:autoComplete id="postulacion" dropdown="true" title="Seleccione una postulación"
+                                                forceSelection="true" value="#{contratoMB.contrato.postulacion}"
+                                                completeMethod="#{listaMB.postulacionesDropdown}"/>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <div class="control-group">
+                            <p:outputLabel value="#{msg['label.contrato.codigoContrato']}"/>
+
+                            <div class="controls">
+                                <p:inputText value="#{contratoMB.contrato.codigoContrato}"
+                                             label="#{msg['label.contrato.codigoContrato']}" required="true"
+                                             styleClass="input-large">
+                                    <f:validateLength minimum="5" maximum="60"/>
+                                </p:inputText>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <p:outputLabel value="#{msg['label.contrato.duracion']}"/>
+
+                            <div class="controls">
+                                <p:inputText value="#{contratoMB.contrato.duracion}"
+                                             label="#{msg['label.contrato.duracion']}" required="true"
+                                             styleClass="input-large">
+                                    <f:validateDoubleRange minimum="1" maximum="60"/>
+                                </p:inputText>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+
+                </p:panelGrid>
+                <p:panel>
+                    <div class="control-group">
+                        <p:outputLabel value="#{msg['label.contrato.modalidad']}"/>
+
+                        <div class="controls">
+                            <p:selectOneButton id="modalidadButton" value="#{contratoMB.contrato.modalidad}">
+                                <f:selectItems value="#{etapaMB.modalidadList}"/>
+
+
+                                <!--<f:setPropertyActionListener target="#{contratoMB.modalidadTemp(modalidadButton.value)}"/>-->
+                                <!--<f:setPropertyActionListener target="#{contratoMB.modalidadTemp}" value="value_here"/>-->
+
+                                <!-- -->
+                                <!--<p:ajax listener="#{contratoMB.selectModalidad}" event="change"-->
+                                <!--update=":form"/>-->
+                            </p:selectOneButton>
+                        </div>
+                    </div>
+                    <p:separator/>
+
+                    <div class="control-group">
+                        <p:outputLabel value="#{msg['label.contrato.fechaRef']}"
+                                       for="referenciaButton"/>
+
+                        <div class="controls">
+                            <p:selectOneButton id="referenciaButton"
+                                               value="#{contratoMB.contrato.referencia}">
+                                <f:selectItems value="#{etapaMB.opcionList}"/>
+                            </p:selectOneButton>
+                            <p:calendar id="calendar" value="#{contratoMB.contrato.fechaRef}" mode="popup"
+                                        showOn="button">
+                              </p:calendar>
+                        </div>
+                    </div>
+                </p:panel>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <p:commandButton value="Guardar" id="ajax"
+                                         actionListener="#{contratoMB.buttonGuardar}"
+                                         styleClass="ui-priority-primary" update=":form"/>
+                        <p:button value="#{msg['button.cancelar']}"
+                                  outcome="listaContrato"/>
+                    </div>
+                </div>
+
+
+                <!--              <h:panelGroup id="simulador" rendered="#{not empty param.id}">
+
+
+                              </h:panelGroup>-->
+
+            </h:form>
+
+            <p:separator/>
+
+            <br/><br/>
+
+
+
+    <br/><br/>
+</ui:composition>
+
+
+
+
+

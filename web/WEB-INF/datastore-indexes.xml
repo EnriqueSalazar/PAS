@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes
+        autoGenerate="true">
+
+    <datastore-index kind="Contrato" ancestor="false">
+        <property name="isVersion" direction="asc"/>
+        <property name="versionOf" direction="asc"/>
+        <property name="sector" direction="asc"/>
+        <property name="postulacion" direction="asc"/>
+        <property name="descripcion" direction="asc"/>
+    </datastore-index>
+
+    <datastore-index kind="Contrato" ancestor="false">
+        <property name="isVersion" direction="asc"/>
+        <property name="postulacion" direction="asc"/>
+        <property name="sector" direction="asc"/>
+        <property name="descripcion" direction="asc"/>
+    </datastore-index>
+
+    <datastore-index kind="Contrato" ancestor="false">
+        <property name="isVersion" direction="asc"/>
+        <property name="sector" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="Contrato" ancestor="false">
+        <property name="descripcion" direction="asc"/>
+        <property name="isVersion" direction="asc"/>
+        <property name="sector" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 10 times in query history -->
+    <datastore-index kind="Contrato" ancestor="false">
+        <property name="isVersion" direction="asc"/>
+        <property name="postulacion" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Contrato" ancestor="false">
+        <property name="isVersion" direction="asc"/>
+        <property name="postulacion" direction="asc"/>
+        <property name="sector" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <datastore-index kind="Etapa" ancestor="false" source="manual">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+    <datastore-index kind="Etapa" ancestor="false" source="manual">
+        <property name="__key__" direction="desc"/>
+        <property name="opcion" direction="desc"/>
+    </datastore-index>
+    <datastore-index kind="Etapa" ancestor="false" source="manual">
+        <property name="__key__" direction="desc"/>
+        <property name="modalidad" direction="desc"/>
+    </datastore-index>
+    <datastore-index kind="Etapa" ancestor="false" source="manual">
+        <property name="__key__" direction="desc"/>
+        <property name="etapas" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 8 times in query history -->
+    <datastore-index kind="Contrato" ancestor="false" source="manual">
+        <property name="isVersion" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 8 times in query history -->
+    <datastore-index kind="Lista" ancestor="false" source="manual">
+        <property name="list" direction="asc"/>
+        <property name="valor" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 4 times in query history -->
+    <datastore-index kind="Lista" ancestor="false" source="manual">
+        <property name="list" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="Lista" ancestor="false" source="manual">
+        <property name="list" direction="asc"/>
+        <property name="postulacion" direction="asc"/>
+    </datastore-index>
+    <datastore-index kind="Lista" ancestor="false" source="manual">
+        <property name="list" direction="asc"/>
+        <property name="productoPND" direction="asc"/>
+    </datastore-index>
+    <datastore-index kind="Lista" ancestor="false" source="manual">
+        <property name="list" direction="asc"/>
+        <property name="postulacion" direction="asc"/>
+        <property name="intervencion" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="Divipola" ancestor="false" source="manual">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <datastore-index kind="Divipola" ancestor="false" source="manual">
+        <property name="departamento" direction="desc"/>
+        <property name="municipio" direction="desc"/>
+        <property name="divipola" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="Pago" ancestor="true" source="manual">
+        <property name="isVersion" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+    <datastore-index kind="Pago" ancestor="false" source="manual">
+        <property name="isVersion" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+    <!-- Used 4 times in query history -->
+    <datastore-index kind="Accion" ancestor="true" source="manual">
+        <property name="isVersion" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="Regionalizacion" ancestor="false" source="manual">
+        <property name="isVersion" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+    <!-- Used 4 times in query history -->
+    <datastore-index kind="Accion" ancestor="false" source="manual">
+        <property name="isVersion" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="Regionalizacion" ancestor="true" source="manual">
+        <property name="isVersion" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Etapa" ancestor="false" source="manual">
+        <property name="modalidad" direction="asc"/>
+        <property name="opcion" direction="asc"/>
+        <property name="etapas" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 10 times in query history -->
+    <datastore-index kind="Etapa" ancestor="false" source="manual">
+        <property name="modalidad" direction="asc"/>
+        <property name="opcion" direction="asc"/>
+        <property name="duracion" direction="asc"/>
+        <property name="etapas" direction="asc"/>
+    </datastore-index>
+    <!-- Used 17 times in query history -->
+    <datastore-index kind="Regionalizacion" ancestor="true" source="manual">
+        <property name="valor" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 18 times in query history -->
+    <datastore-index kind="Regionalizacion" ancestor="true" source="manual">
+        <property name="beneficiarios" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 4 times in query history -->
+    <datastore-index kind="Pago" ancestor="true" source="manual">
+        <property name="aporte" direction="asc"/>
+    </datastore-index>
+
+    <datastore-index kind="ProductoPSA" ancestor="true">
+        <property name="contrato" direction="asc"/>
+        <property name="divipola" direction="asc"/>
+        <property name="intervencion" direction="asc"/>
+        <property name="producto" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 81 times in query history -->
+    <datastore-index kind="Lista" ancestor="false">
+        <property name="list" direction="asc"/>
+        <property name="productoPSA" direction="asc"/>
+        <property name="productoPND" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 5 times in query history -->
+    <datastore-index kind="Accion" ancestor="true">
+        <property name="divipola" direction="asc"/>
+        <property name="intervencion" direction="asc"/>
+        <property name="producto" direction="asc"/>
+        <property name="abril2015" direction="asc"/>
+        <property name="agosto2015" direction="asc"/>
+        <property name="diciembre2015" direction="asc"/>
+        <property name="enero2015" direction="asc"/>
+        <property name="febrero2015" direction="asc"/>
+        <property name="julio2015" direction="asc"/>
+        <property name="junio2015" direction="asc"/>
+        <property name="marzo2015" direction="asc"/>
+        <property name="mayo2015" direction="asc"/>
+        <property name="noviembre2015" direction="asc"/>
+        <property name="octubre2015" direction="asc"/>
+        <property name="septiembre2015" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="ProductosPSA" ancestor="false">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="ProductoPSA" ancestor="true">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 3 times in query history -->
+    <datastore-index kind="Seguimiento" ancestor="false">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 3 times in query history -->
+    <datastore-index kind="Hito" ancestor="true">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 8 times in query history -->
+    <datastore-index kind="Etapa" ancestor="false">
+        <property name="etapas" direction="asc"/>
+        <property name="modalidad" direction="asc"/>
+        <property name="opcion" direction="asc"/>
+        <property name="duracion" direction="asc"/>
+    </datastore-index>
+</datastore-indexes>

@@ -1,0 +1,214 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar ProductoPSAs"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{productoPSAMB.editar}"/>
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+        <style type="text/css">
+
+            .red {
+                background-color: #ff7e76;
+                background-image: none;
+            }
+
+            .normal {
+                background-color: #ffffff;
+                background-image: none;
+            }
+        </style>
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataCheckProductoPSAs" value="#{productoPSAMB.allLazyCheckProductoPSAs}"
+                         var="checkProductoPSA" editable="true" ajax="true" rowKey="#{checkProductoPSA.id}"
+                         rows="10" paginator="true" scrollable="true"
+                         scrollWidth="100%"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" widgetVar="productoPSAsTable"
+                         paginatorPosition="top" autoUpdate="true" lazy="true"
+                         rowStyleClass="#{checkProductoPSA.eneroDelta lt 0 or checkProductoPSA.febreroDelta lt 0 or
+                         checkProductoPSA.marzoDelta lt 0 or checkProductoPSA.abrilDelta lt 0 or
+                         checkProductoPSA.mayoDelta lt 0 or checkProductoPSA.junioDelta lt 0 or
+                         checkProductoPSA.julioDelta lt 0 or checkProductoPSA.agostoDelta lt 0 or
+                         checkProductoPSA.septiembreDelta lt 0 or checkProductoPSA.octubreDelta lt 0 or
+                         checkProductoPSA.noviembreDelta lt 0 or checkProductoPSA.diciembreDelta lt 0 ? 'red' :  'normal'}">
+                <!--
+                                         rowStyleClass="#{checkProductoPSA.deltaTCC lt 0 or productoPSA.deltaSig lt 0 ? 'red' :  'normal'}"
+                -->
+
+                <f:facet name="header">ProductoPSAs</f:facet>
+                <p:columnGroup type="header">
+                    <p:row>
+                        <p:column rowspan="2" headerText="Contrato" width="50"/>
+                        <p:column rowspan="2" headerText="Divipola" width="50"/>
+                        <p:column rowspan="2" headerText="Intervencion" width="50"/>
+                        <p:column rowspan="2" headerText="Vigencia" width="50"/>
+                        <p:column rowspan="2" headerText="Producto PAS" width="150"/>
+                        <p:column rowspan="2" headerText="Productos PSA" width="150"/>
+                        <p:column colspan="2" headerText="Enero" width=" 60"/>
+                        <p:column colspan="2" headerText="Febrero" width=" 60"/>
+                        <p:column colspan="2" headerText="Marzo" width=" 60"/>
+                        <p:column colspan="2" headerText="Abril" width=" 60"/>
+                        <p:column colspan="2" headerText="Mayo" width=" 60"/>
+                        <p:column colspan="2" headerText="Junio" width=" 60"/>
+                        <p:column colspan="2" headerText="Julio" width=" 60"/>
+                        <p:column colspan="2" headerText="Agosto" width=" 60"/>
+                        <p:column colspan="2" headerText="Septiembre" width=" 60"/>
+                        <p:column colspan="2" headerText="Octubre" width=" 60"/>
+                        <p:column colspan="2" headerText="Noviembre" width=" 60"/>
+                        <p:column colspan="2" headerText="Diciembre" width=" 60"/>
+                    </p:row>
+                    <p:row>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+                        <p:column headerText="PSA"/>
+                        <p:column headerText="PAS"/>
+
+                    </p:row>
+                </p:columnGroup>
+                <p:column headerText="Contrato">
+                    <h:outputText value="#{checkProductoPSA.contrato}"/>
+                </p:column>
+                <p:column headerText="Divipola">
+                    <h:outputText value="#{checkProductoPSA.divipola}"/>
+                </p:column>
+                <p:column headerText="Intervencion">
+                    <h:outputText value="#{checkProductoPSA.intervencion}"/>
+                </p:column>
+                <p:column headerText="Vigencia">
+                    <h:outputText value="#{checkProductoPSA.vigencia}"/>
+                </p:column>
+                <p:column headerText="Producto PAS">
+                    <h:outputText value="#{checkProductoPSA.productoPAS}"/>
+                </p:column>
+                <p:column headerText="Productos PSA">
+                    <h:outputText value="#{checkProductoPSA.productosPSA}"/>
+                </p:column>
+                <p:column headerText="Enero PSA">
+                    <h:outputText value="#{checkProductoPSA.enero}"/>
+                </p:column>
+                <p:column headerText="Enero PAS">
+                    <h:outputText value="#{checkProductoPSA.enero0}"/>
+                </p:column>
+                <p:column headerText="Febrero PSA">
+                    <h:outputText value="#{checkProductoPSA.febrero}"/>
+                </p:column>
+                <p:column headerText="Febrero PAS">
+                    <h:outputText value="#{checkProductoPSA.febrero0}"/>
+                </p:column>
+                <p:column headerText="Marzo PSA">
+                    <h:outputText value="#{checkProductoPSA.marzo}"/>
+                </p:column>
+                <p:column headerText="Marzo PAS">
+                    <h:outputText value="#{checkProductoPSA.marzo0}"/>
+                </p:column>
+                <p:column headerText="Abril PSA">
+                    <h:outputText value="#{checkProductoPSA.abril}"/>
+                </p:column>
+                <p:column headerText="Abril PAS">
+                    <h:outputText value="#{checkProductoPSA.abril0}"/>
+                </p:column>
+                <p:column headerText="Mayo PSA">
+                    <h:outputText value="#{checkProductoPSA.mayo}"/>
+                </p:column>
+                <p:column headerText="Mayo PAS">
+                    <h:outputText value="#{checkProductoPSA.mayo0}"/>
+                </p:column>
+                <p:column headerText="Junio PSA">
+                    <h:outputText value="#{checkProductoPSA.junio}"/>
+                </p:column>
+                <p:column headerText="Junio PAS">
+                    <h:outputText value="#{checkProductoPSA.junio0}"/>
+                </p:column>
+                <p:column headerText="Julio PSA">
+                    <h:outputText value="#{checkProductoPSA.julio}"/>
+                </p:column>
+                <p:column headerText="Julio PAS">
+                    <h:outputText value="#{checkProductoPSA.julio0}"/>
+                </p:column>
+                <p:column headerText="Agosto PSA">
+                    <h:outputText value="#{checkProductoPSA.agosto}"/>
+                </p:column>
+                <p:column headerText="Agosto PAS">
+                    <h:outputText value="#{checkProductoPSA.agosto0}"/>
+                </p:column>
+                <p:column headerText="Septiembre PSA">
+                    <h:outputText value="#{checkProductoPSA.septiembre}"/>
+                </p:column>
+                <p:column headerText="Septiembre PAS">
+                    <h:outputText value="#{checkProductoPSA.septiembre0}"/>
+                </p:column>
+                <p:column headerText="Octubre PSA">
+                    <h:outputText value="#{checkProductoPSA.octubre}"/>
+                </p:column>
+                <p:column headerText="Octubre PAS">
+                    <h:outputText value="#{checkProductoPSA.octubre0}"/>
+                </p:column>
+                <p:column headerText="Noviembre PSA">
+                    <h:outputText value="#{checkProductoPSA.noviembre}"/>
+                </p:column>
+                <p:column headerText="Noviembre PAS">
+                    <h:outputText value="#{checkProductoPSA.noviembre0}"/>
+                </p:column>
+                <p:column headerText="Diciembre PSA">
+                    <h:outputText value="#{checkProductoPSA.diciembre}"/>
+                </p:column>
+                <p:column headerText="Diciembre PAS">
+                    <h:outputText value="#{checkProductoPSA.diciembre0}"/>
+                </p:column>
+                <!--                <p:column headerText="Enero Delta">
+
+                                    <h:outputText value="#{checkProductoPSA.eneroDelta}"/>
+
+                                </p:column>-->
+            </p:dataTable>
+            <p:growl id="growl" life="10000" showDetail="true"/>
+            <!-- <p:commandButton value="Reset"
+                              actionListener="#{checkProductoPSAMB.buttonReset}"
+                              styleClass="ui-priority-primary" ajax="true"/>-->
+        </h:form>
+
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+        <h:panelGrid columns="1">
+            <p:button id="lnkHidden" value="Volver" outcome="editarSeguimientoPSA.jsf">
+            </p:button>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>

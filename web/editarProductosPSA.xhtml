@@ -1,0 +1,265 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar ProductoPSAs"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{productoPSAMB.editar}"/>
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataProductoPSAs" value="#{productoPSAMB.allLazyProductoPSAs}"
+                         var="productoPSA" editable="true" ajax="true" royKey="#{productoPSA.id}"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" widgetVar="productoPSAsTable"
+                         paginatorPosition="top" autoUpdate="true" lazy="true">
+                <f:facet name="header">ProductoPSAs</f:facet>
+                <p:column headerText="Id" exportable="false">
+                    <h:outputText value="#{productoPSA.id}"/>
+                  <!--  <f:facet name="footer" style="left">
+                        <p:commandButton value="Nuevo" id="ajax"
+                                         actionListener="#{productoPSAMB.buttonCrear}"
+                                         styleClass="ui-priority-primary" ajax="true"/>
+                        <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                         icon="ui-icon-disk" ajax="false" actionListener="#{productoPSAMB.CSVExport}"/>
+                    </f:facet>-->
+                </p:column>
+                <p:column headerText="Contrato">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.contrato}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="parentId" value="#{productoPSA.contrato}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Intervención">
+                    <!--<p:cellEditor>-->
+                        <!--<f:facet name="output">-->
+                            <h:outputText value="#{productoPSA.intervencion}"/>
+                        <!--</f:facet>-->
+                        <!--<f:facet name="input">-->
+                            <!--<p:selectOneMenu id="selectIntervencion" value="#{productoPSA.intervencion}"-->
+                                             <!--style="width:100%">-->
+                                <!--<f:selectItem itemLabel="Seleccione uno" itemValue=""/>-->
+                                <!--<f:selectItems value="#{listaMB.intervencionStringLista}"-->
+                                               <!--var="intervencion" itemLabel="#{intervencion}"-->
+                                               <!--itemValue="#{intervencion}"/>-->
+                            <!--</p:selectOneMenu>-->
+                        <!--</f:facet>-->
+                    <!--</p:cellEditor>-->
+                </p:column>
+                <p:column headerText="Producto">
+
+                            <h:outputText value="#{productoPSA.producto}"/>
+
+                </p:column>
+                <p:column headerText="Departamento">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.departamento}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu id="divipolaPD" value="#{productoPSA.departamento}" style="width:125px">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                                <f:selectItems value="#{divipolaMB.departamentoMap}"/>
+                                <p:ajax update="divipolaPM" listener="#{divipolaMB.divipolaListener}"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Municipio">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.municipio} "/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu id="divipolaPM" value="#{productoPSA.divipola}" style="width:125px">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                                <f:selectItems value="#{divipolaMB.municipioMap}"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Enero">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.enero}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputEnero" value="#{productoPSA.enero}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column> 
+                
+                <p:column headerText="Febrero">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.febrero}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputFebrero" value="#{productoPSA.febrero}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Marzo">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.marzo}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputMarzo" value="#{productoPSA.marzo}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Abril">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.abril}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputAbril" value="#{productoPSA.abril}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Mayo">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.mayo}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputMayo" value="#{productoPSA.mayo}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Junio">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.junio}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputJunio" value="#{productoPSA.junio}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Julio">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.julio}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputJulio" value="#{productoPSA.julio}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Agosto">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.agosto}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputAgosto" value="#{productoPSA.agosto}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Septiembre">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.septiembre}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputSeptiembre" value="#{productoPSA.septiembre}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Octubre">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.octubre}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputOctubre" value="#{productoPSA.octubre}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Noviembre">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.noviembre}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputNoviembre" value="#{productoPSA.noviembre}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Diciembre">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{productoPSA.diciembre}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputDiciembre" value="#{productoPSA.diciembre}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
+
+              <!--  <p:column style="width:22px; center;" exportable="false">
+                    <p:rowEditor/>
+
+                </p:column>-->
+<!--                <p:column style="width:30px; float:center" exportable="false">
+                    <p:commandButton icon="ui-icon-trash"
+                                     actionListener="#{productoPSAMB.buttonEliminar}" update="@form"
+                                     oncomplete="PF('productoPSAsTable').filter();"/>
+
+                </p:column>-->
+<!--                <p:ajax event="rowEdit" listener="#{productoPSAMB.buttonGuardar}"
+                        update=":form:msgs"/>
+                <p:ajax event="rowEditCancel" listener="#{productoPSAMB.onRowCancel}"
+                        update=":form:msgs"/>-->
+
+            </p:dataTable>
+            <p:growl id="growl" life="10000" showDetail="true"/>
+            <!-- <p:commandButton value="Reset"
+                              actionListener="#{productoPSAMB.buttonReset}"
+                              styleClass="ui-priority-primary" ajax="true"/>-->
+        </h:form>
+
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+        <h:panelGrid columns="1">
+            <p:button id="lnkHidden" value="Volver" outcome="editarSeguimientoPSA.jsf">
+            </p:button>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>

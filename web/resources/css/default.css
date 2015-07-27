@@ -1,0 +1,16 @@
+.ui-widget {
+	font-size: 90%;
+}
+
+.ui-widget .ui-widget {
+	font-size: 100%;
+}
+
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}

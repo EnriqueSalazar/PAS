@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Fuentes"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{fuenteMB.editar}"/>
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataFuentes" value="#{fuenteMB.allLazyFuentes}"
+                         var="fuente" editable="true" ajax="true" royKey="#{fuente.id}"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" widgetVar="fuentesTable"
+                         paginatorPosition="top" autoUpdate="true" lazy="true">
+                <f:facet name="header">Fuentes</f:facet>
+                <p:column headerText="Id" exportable="false">
+                    <h:outputText value="#{fuente.id}"/>
+                    <f:facet name="footer" style="left">
+                        <p:commandButton value="Nuevo" id="ajax"
+                                         actionListener="#{fuenteMB.buttonCrear}"
+                                         styleClass="ui-priority-primary" ajax="true"/>
+                        <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                         icon="ui-icon-disk" ajax="false">
+                            <l:dataExporter source="dataFuentes" fileType="csv" fileName="fuentes"
+                                            fileOptions="#{fuenteMB.csvExportOptions}"/>
+                        </p:commandButton>
+                    </f:facet>
+                </p:column>
+                <p:column headerText="Fuente" filterBy="#{fuente.fuente}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{fuente.fuente}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputOpcion" value="#{fuente.fuente}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column style="width:22px; center;" exportable="false">
+                    <p:rowEditor/>
+
+                </p:column>
+                <p:column style="width:30px; float:center" exportable="false">
+                    <p:commandButton icon="ui-icon-trash"
+                                     actionListener="#{fuenteMB.buttonEliminar}" update="@form"
+                                     oncomplete="PF('fuentesTable').filter();"/>
+
+                </p:column>
+                <!--<p:ajax event="rowEdit" listener="#{fuenteMB.buttonGuardar}"-->
+                        <!--update=":form:msgs"/>-->
+                <!--<p:ajax event="rowEditCancel" listener="#{fuenteMB.onRowCancel}"-->
+                        <!--update=":form:msgs"/>-->
+                <p:ajax event="rowEdit" listener="#{fuenteMB.buttonGuardar}"
+                        process="@all"/>
+                <p:ajax event="rowEditCancel" listener="#{fuenteMB.onRowCancel}"
+                        />
+
+            </p:dataTable>
+            <p:growl id="growl" life="10000" showDetail="true"/>
+            <!-- <p:commandButton value="Reset"
+                              actionListener="#{fuenteMB.buttonReset}"
+                              styleClass="ui-priority-primary" ajax="true"/>-->
+        </h:form>
+
+        <p:separator/>
+        <h:form id="uploadForm" enctype="multipart/form-data">
+            <p:fileUpload id="primeUpload" value="#{uploaderMB.uploadFile}" mode="simple" ajax="false"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{uploaderMB.fuenteUpload}"/>
+
+        </h:form>
+        <p:tooltip id="uploadTip" for="uploadForm"
+                   trackMouse="true">
+            <h:outputText value="Cargar archivo plano con la estructura:" escape="false"/>
+            <br/>
+            <h:outputText
+                    value="Fuente"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value="REEMPLAZA TODOS LOS REGISTROS - Debe ir encabezado."
+                    escape="false"/>
+            <br/>
+        </p:tooltip>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+
+    </ui:define>
+</ui:composition>
+</html>

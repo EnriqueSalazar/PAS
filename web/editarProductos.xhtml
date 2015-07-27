@@ -1,0 +1,383 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Etapas"/>
+    </ui:define>
+
+    <f:metadata>
+        <!--
+                <f:event type="preRenderView" listener="#{pagoMB.reset}"/>
+        -->
+        <!--
+                <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+        -->
+
+    </f:metadata>
+
+    <ui:define name="content">
+        <!--*************** Empieza un formulario 1 ******************************-->
+        <h:form styleClass="form-horizontal" id="formAccion">
+            <p:growl id="msg" life="10000" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataAccions" value="#{accionFullMB.allLazyAccions}"
+                         var="accion" editable="true" ajax="true" royKey="#{accion.id}"
+                         scrollable="true" scrollWidth="100%" rows="10" paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" style="table-layout: auto" lazy="true">
+                <f:facet name="header">Productos
+                </f:facet>
+
+                <p:columnGroup type="header">
+                    <p:row>
+
+                        <!--  &lt;!&ndash;                            <p:column rowspan="2" headerText="Id" style="width:50px"/>
+                        -->
+                        <p:column rowspan="2" headerText="Contrato" style="width:50px"/>
+                        <p:column rowspan="2" headerText="Producto" style="width:150px"/>
+                        <p:column rowspan="2" headerText="Departamento Municipio" style="width:100px"/>
+                        <p:column rowspan="2" headerText="Intervención"
+                                  style="width:100px"/>
+                        <p:column colspan="4" headerText="Vigencia" style="width:200px"/>
+                        <p:column colspan="12" headerText="2015" style="width:600px"/>
+                        <p:column colspan="12" headerText="2016" style="width:600px"/>
+                        <p:column colspan="12" headerText="2017" style="width:600px"/>
+                        <p:column colspan="12" headerText="2018" style="width:600px"/>
+                    </p:row>
+                    <p:row>
+                        <p:column headerText="2015" style="width:50px"/>
+                        <p:column headerText="2016" style="width:50px"/>
+                        <p:column headerText="2017" style="width:50px"/>
+                        <p:column headerText="2018" style="width:50px"/>
+                        <p:column headerText="Ene" style="width:50px"/>
+                        <p:column headerText="Feb" style="width:50px"/>
+                        <p:column headerText="Mar" style="width:50px"/>
+                        <p:column headerText="Abr" style="width:50px"/>
+                        <p:column headerText="May" style="width:50px"/>
+                        <p:column headerText="Jun" style="width:50px"/>
+                        <p:column headerText="Jul" style="width:50px"/>
+                        <p:column headerText="Ago" style="width:50px"/>
+                        <p:column headerText="Sep" style="width:50px"/>
+                        <p:column headerText="Oct" style="width:50px"/>
+                        <p:column headerText="Nov" style="width:50px"/>
+                        <p:column headerText="Dic" style="width:50px"/>
+                        <p:column headerText="Ene" style="width:50px"/>
+                        <p:column headerText="Feb" style="width:50px"/>
+                        <p:column headerText="Mar" style="width:50px"/>
+                        <p:column headerText="Abr" style="width:50px"/>
+                        <p:column headerText="May" style="width:50px"/>
+                        <p:column headerText="Jun" style="width:50px"/>
+                        <p:column headerText="Jul" style="width:50px"/>
+                        <p:column headerText="Ago" style="width:50px"/>
+                        <p:column headerText="Sep" style="width:50px"/>
+                        <p:column headerText="Oct" style="width:50px"/>
+                        <p:column headerText="Nov" style="width:50px"/>
+                        <p:column headerText="Dic" style="width:50px"/>
+                        <p:column headerText="Ene" style="width:50px"/>
+                        <p:column headerText="Feb" style="width:50px"/>
+                        <p:column headerText="Mar" style="width:50px"/>
+                        <p:column headerText="Abr" style="width:50px"/>
+                        <p:column headerText="May" style="width:50px"/>
+                        <p:column headerText="Jun" style="width:50px"/>
+                        <p:column headerText="Jul" style="width:50px"/>
+                        <p:column headerText="Ago" style="width:50px"/>
+                        <p:column headerText="Sep" style="width:50px"/>
+                        <p:column headerText="Oct" style="width:50px"/>
+                        <p:column headerText="Nov" style="width:50px"/>
+                        <p:column headerText="Dic" style="width:50px"/>
+                        <p:column headerText="Ene" style="width:50px"/>
+                        <p:column headerText="Feb" style="width:50px"/>
+                        <p:column headerText="Mar" style="width:50px"/>
+                        <p:column headerText="Abr" style="width:50px"/>
+                        <p:column headerText="May" style="width:50px"/>
+                        <p:column headerText="Jun" style="width:50px"/>
+                        <p:column headerText="Jul" style="width:50px"/>
+                        <p:column headerText="Ago" style="width:50px"/>
+                        <p:column headerText="Sep" style="width:50px"/>
+                        <p:column headerText="Oct" style="width:50px"/>
+                        <p:column headerText="Nov" style="width:50px"/>
+                        <p:column headerText="Dic" style="width:50px"/>
+                    </p:row>
+                </p:columnGroup>
+
+                <!-- &lt;!&ndash;                 <p:column>
+                                      <h:outputText value="#{accion.id}"/>
+                                  </p:column>-->
+                <p:column>
+                    <h:outputText value="#{accion.parentId}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.producto}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.departamento}  #{accion.municipio} "/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.intervencion}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.vigencia2015}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.vigencia2016}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.vigencia2017}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.vigencia2018}"/>
+
+                </p:column>
+
+
+                <p:column>
+
+                    <h:outputText value="#{accion.enero2015}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.febrero2015}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.marzo2015}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.abril2015}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.mayo2015}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.junio2015}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.julio2015}"/>
+
+                </p:column>
+                <p:column>
+
+                    <h:outputText value="#{accion.agosto2015}"/>
+
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.septiembre2015}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.octubre2015}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.noviembre2015}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.diciembre2015}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.enero2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.febrero2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.marzo2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.abril2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.mayo2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.junio2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.julio2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.agosto2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.septiembre2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.octubre2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.noviembre2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.diciembre2016}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.enero2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.febrero2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.marzo2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.abril2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.mayo2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.junio2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.julio2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.agosto2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.septiembre2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.octubre2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.noviembre2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.diciembre2017}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.enero2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.febrero2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.marzo2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.abril2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.mayo2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.junio2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.julio2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.agosto2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.septiembre2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.octubre2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.noviembre2018}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{accion.diciembre2018}"/>
+                </p:column>
+
+
+                <f:facet name="footer">
+                    <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                     icon="ui-icon-disk" ajax="false" actionListener="#{accionFullMB.CSVExport}"/>
+                </f:facet>
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade"
+                             hideEffect="explode">
+                <p:commandButton value="Si" type="button"
+                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button"
+                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
+
+        </h:form>
+        <p:separator/>
+        <h:form id="uploadForm1" enctype="multipart/form-data">
+            <p:fileUpload id="primeUpload1" value="#{uploaderMB.uploadFile}" mode="simple" ajax="false"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{uploaderMB.accionUpload}"/>
+        </h:form>
+
+        <p:tooltip id="uploadTip" for="uploadForm1"
+                   trackMouse="true">
+            <h:outputText value="Cargar archivo plano con la estructura:" escape="false"/>
+            <br/> <br/>
+            <h:outputText
+                    value="Contrato|Producto|Divipola|Intervención|Vigencia2015|Vigencia2016|Vigencia2017|Vigencia2018|"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value=" Enero2015|Febrero2015|Marzo2015|Abril2015|Mayo2015|Junio2015|"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value=" Julio2015|Agosto2015|Septiembre2015|Octubre2015|Noviembre2015|Diciembre2015|"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value=" Enero2016|Febrero2016|Marzo2016|Abril2016|Mayo2016|Junio2016|"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value=" Julio2016|Agosto2016|Septiembre2016|Octubre2016|Noviembre2016|Diciembre2016|"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value=" Enero2017|Febrero2017|Marzo2017|Abril2017|Mayo2017|Junio2017|"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value=" Julio2017|Agosto2017|Septiembre2017|Octubre2017|Noviembre2017|Diciembre2017|"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value=" Enero2018|Febrero2018|Marzo2018|Abril2018|Mayo2018|Junio2018|"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value=" Julio2018|Agosto2018|Septiembre2018|Octubre2018|Noviembre2018|Diciembre2018"
+                    escape="false"/>
+            <br/>
+            <br/>
+            <h:outputText
+                    value="REEMPLAZA TODOS LOS REGISTROS - Debe ir encabezado."
+                    escape="false"/>
+            <br/>
+        </p:tooltip>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+
+    </ui:define>
+</ui:composition>
+</html>

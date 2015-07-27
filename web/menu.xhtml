@@ -1,0 +1,61 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<!-- 	<ul class="nav nav-list" style="padding-top: 15px;">
+		<li><em><h:outputText value="#{msg['label.contratos']}" /></em></li>
+		
+		<li class="#{empty param.active || param.active == 'lista' ? 'active' : ''}">
+			<h:link outcome="listaContrato" value="#{msg['menu.lista']}">
+				<f:param name="active" value="lista" />
+            </h:link>
+		</li>
+		<li class="#{param.active == 'incluir' ? 'active' : ''}">
+			<h:link outcome="agregarContrato" value="#{msg['menu.agregar']}">
+				<f:param name="active" value="incluir" />
+            </h:link>
+        </li>
+		<li class="divider"></li>
+		<li class="#{param.active == 'sobre' ? 'active' : ''}">
+			<h:link outcome="sobre" value="#{msg['menu.sobre']}">
+				<f:param name="active" value="sobre" />
+            </h:link>
+		</li>
+	</ul> -->
+
+	<h:form>
+		<p:panelMenu>
+			<p:submenu label="Contratos">
+				<p:menuitem value="Lista" url="listaContrato.jsf?active=lista"
+					icon="ui-icon-document"
+					class="#{empty param.active || param.active == 'lista' ? 'active' : ''}" />
+				<p:menuitem value="Agregar" url="agregarContrato.jsf?active=incluir"
+					icon="ui-icon-arrowrefresh-1-w" />
+			</p:submenu>
+			<p:submenu label="Reportes">
+				<p:menuitem value="Delete" actionListener="#{menuView.delete}"
+					ajax="false" icon="ui-icon-close" />
+			</p:submenu>
+			<p:separator />
+			<p:submenu label="Integración">
+				<p:submenu label="Sistemas" icon="ui-icon-extlink">
+					<p:submenu label="PrimeFaces" icon="ui-icon-heart">
+						<p:menuitem value="Home" url="http://www.primefaces.org"
+							icon="ui-icon-home" />
+						<p:menuitem value="Docs"
+							url="http://www.primefaces.org/documentation"
+							icon="ui-icon-document" />
+						<p:menuitem value="Download"
+							url="http://www.primefaces.org/downloads"
+							icon="ui-icon-arrowthick-1-s" />
+						<p:menuitem value="Support"
+							url="http://www.primefaces.org/support" icon="ui-icon-wrench" />
+					</p:submenu>
+				</p:submenu>
+				<p:menuitem value="Otros" />
+			</p:submenu>
+		</p:panelMenu>
+	</h:form>
+
+</ui:fragment>

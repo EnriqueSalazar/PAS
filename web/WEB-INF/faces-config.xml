@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application>
+        <!-- Configura una localidad (i18n) es-PE para toda la aplicación. -->
+        <locale-config>
+            <default-locale>es_CO</default-locale>
+        </locale-config>
+
+        <!-- Define el nombre del archivo con las labels y mensajes. Note que 'msg'
+            es una variable usada en las paginas para recuperar las labels/mensajes. -->
+        <resource-bundle>
+            <base-name>messages_labels</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
+
+    <!-- Configura un PhaseListener utilizado para forzar una serialización
+            de la sesión en App Engine. -->
+    <lifecycle>
+        <phase-listener>co.gov.fonada.planeacion.config.SessionSerializationPhaseListener</phase-listener>
+    </lifecycle>
+    <!--<lifecycle>-->
+    <!--<phase-listener>co.gov.fonada.planeacion.utils.LifeCycleListener</phase-listener>-->
+    <!--</lifecycle>-->
+</faces-config>

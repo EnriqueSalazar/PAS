@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <h:form styleClass="form-horizontal" id="formRegionalizacion">
+        <p:dataTable id="dataRegionalizacions"
+                     value="#{regionalizacionMB.lazyRegionalizacions}"
+                     var="regionalizacion" editable="true" ajax="true"
+                     royKey="#{regionalizacion.id}" scrollable="true" scrollWidth="100%"
+                     rows="10" paginator="true"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15" style="table-layout: auto" lazy="true">
+            <f:facet name="header">Beneficiarios y Valores
+            </f:facet>
+            <p:ajax event="rowEdit"
+                    listener="#{regionalizacionMB.buttonGuardar}" process="@all"/>
+
+            <p:ajax event="rowEditCancel"
+                    listener="#{regionalizacionMB.onRowCancel}"/>
+
+            <p:columnGroup type="header">
+                <p:row>
+                    <p:column headerText=" " style="width:10px"/>
+                    <p:column headerText=" " style="width:30px"/>
+
+                    <!--                            <p:column headerText="Id" style="width:50px"/>
+                                                <p:column headerText="Contrato" style="width:50px"/>-->
+
+                    <!--<p:column headerText="Departamento"/>-->
+                    <p:column headerText="Departamento"/>
+                    <p:column headerText="Municipio"/>
+                    <p:column headerText="Valor"/>
+                    <p:column headerText="Beneficiarios"/>
+                </p:row>
+            </p:columnGroup>
+            <p:column>
+                <p:rowEditor/>
+            </p:column>
+            <p:column>
+                <p:commandButton icon="ui-icon-trash"
+                                 actionListener="#{regionalizacionMB.buttonEliminar}">
+                    <p:confirm header="Confirmación"
+                               message="Seguro que desea eliminar?" icon="ui-icon-alert"/>
+                </p:commandButton>
+            </p:column>
+            <!--                    <p:column>
+                                    <h:outputText value="#{regionalizacion.id}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{regionalizacion.parent}"/>
+                                </p:column>-->
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{regionalizacion.departamento}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu id="divipolaRD" value="#{regionalizacion.departamento}" style="width:125px">
+                            <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                            <f:selectItems value="#{divipolaMB.departamentoMap}"/>
+                            <p:ajax update="divipolaRM" listener="#{divipolaMB.divipolaListener}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{regionalizacion.municipio} "/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu id="divipolaRM" value="#{regionalizacion.divipola}" style="width:125px">
+                            <f:selectItem itemLabel="Seleccione uno" itemValue=""/>
+                            <f:selectItems value="#{divipolaMB.municipioMap}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{regionalizacion.valor}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputValor"
+                                     value="#{regionalizacion.valor}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column>
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{regionalizacion.beneficiarios}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText id="modelInputBeneficiarios"
+                                     value="#{regionalizacion.beneficiarios}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <f:facet name="footer">
+                <p:commandButton value="Crear" id="ajaxRegionalizacion"
+                                 actionListener="#{regionalizacionMB.buttonCrear}"
+                                 styleClass="ui-priority-primary" ajax="true"
+                                 process=":mainAccordion">
+                    <f:attribute name="pId" value="#{contratoMB.contrato.id}"/>
+                </p:commandButton>
+            </f:facet>
+
+        </p:dataTable>
+        <p:confirmDialog global="true" showEffect="fade"
+                         hideEffect="explode">
+            <p:commandButton value="Si" type="button"
+                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            <p:commandButton value="No" type="button"
+                             styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+        </p:confirmDialog>
+
+    </h:form>
+</ui:composition>
+
+
+
+
+

@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Etapas"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{etapaMB.editar}"/>
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataEtapas" value="#{etapaMB.allLazyEtapas}"
+                         var="etapa" editable="true" ajax="true" royKey="#{etapa.id}"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" widgetVar="etapasTable"
+                         paginatorPosition="top" autoUpdate="true" lazy="true">
+                <f:facet name="header">Etapas</f:facet>
+                <p:column headerText="Id" exportable="false">
+                    <h:outputText value="#{etapa.id}"/>
+                    <f:facet name="footer" style="left">
+                        <p:commandButton value="Nuevo" id="ajax"
+                                         actionListener="#{etapaMB.buttonCrear}"
+                                         styleClass="ui-priority-primary" ajax="true"/>
+                        <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                         icon="ui-icon-disk" ajax="false">
+                            <l:dataExporter source="dataEtapas" fileType="csv" fileName="etapas"
+                                            fileOptions="#{etapaMB.csvExportOptions}"/>
+                        </p:commandButton>
+                        <!--<p:commandButton value="XLS" styleClass="ui-priority-primary"-->
+                        <!--icon="ui-icon-disk" ajax="false">-->
+                        <!--<p:dataExporter type="xls" target="dataEtapas" fileName="etapas"/>-->
+                        <!--</p:commandButton>-->
+                    </f:facet>
+                </p:column>
+                <p:column headerText="Opción" filterBy="#{etapa.opcion}"
+                          filterMatchMode="exact" filterOptions="#{etapaMB.opcionOption}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{etapa.opcion}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputOpcion" value="#{etapa.opcion}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Modalidad" filterBy="#{etapa.modalidad}"
+                          filterMatchMode="exact" filterOptions="#{etapaMB.modalidadOption}">
+                    <p:cellEditor>
+                        <f:facet name="filter">
+                            <p:selectCheckboxMenu label="Modalidad">
+                                <f:selectItems value="#{etapaMB.modalidadList}"/>
+                            </p:selectCheckboxMenu>
+                        </f:facet>
+                        <f:facet name="output">
+                            <h:outputText value="#{etapa.modalidad}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputModalidad" value="#{etapa.modalidad}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Etapa" filterBy="#{etapa.etapas}"
+                          filterMatchMode="exact" filterOptions="#{etapaMB.etapaOption}">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{etapa.etapas}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputEtapas" value="#{etapa.etapas}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Duración">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{etapa.duracion}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputDuracion" value="#{etapa.duracion}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column style="width:22px; center;" exportable="false">
+                    <p:rowEditor/>
+
+                </p:column>
+                <p:column style="width:30px; float:center" exportable="false">
+                    <p:commandButton icon="ui-icon-trash"
+                                     actionListener="#{etapaMB.buttonEliminar}" update="@form"
+                                     oncomplete="PF('etapasTable').filter();"/>
+
+                </p:column>
+                <p:ajax event="rowEdit" listener="#{etapaMB.buttonGuardar}"
+                        update=":form:msgs"/>
+                <p:ajax event="rowEditCancel" listener="#{etapaMB.onRowCancel}"
+                        update=":form:msgs"/>
+
+            </p:dataTable>
+            <p:growl id="growl" life="10000" showDetail="true"/>
+            <!-- <p:commandButton value="Reset"
+                              actionListener="#{etapaMB.buttonReset}"
+                              styleClass="ui-priority-primary" ajax="true"/>-->
+        </h:form>
+
+        <p:separator/>
+        <h:form id="uploadForm" enctype="multipart/form-data">
+            <p:fileUpload id="primeUpload" value="#{uploaderMB.uploadFile}" mode="simple" ajax="false"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{uploaderMB.etapaUpload}"/>
+
+        </h:form>
+        <p:tooltip id="uploadTip" for="uploadForm"
+                   trackMouse="true">
+            <h:outputText value="Cargar archivo plano con la estructura:" escape="false"/>
+            <br/>
+            <h:outputText
+                    value="Opción|Modalidad|Etapa|Duración"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value="REEMPLAZA TODOS LOS REGISTROS - Debe ir encabezado."
+                    escape="false"/>
+            <br/>
+        </p:tooltip>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+
+    </ui:define>
+</ui:composition>
+</html>

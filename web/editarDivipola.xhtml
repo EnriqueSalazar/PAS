@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Divipola"/>
+    </ui:define>
+
+    <f:metadata>
+<!--
+        <f:event type="preRenderView" listener="#{divipolaMB.editar}"/>
+-->
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <style>
+            .ui-datatable-odd {
+                background: none repeat scroll 0 0 #F2F5F9;
+            }
+
+            /*.ui-datatable-data tr{*/
+            /*height: 100px !important;*/
+            /*}*/
+        </style>
+        <h:form id="form1">
+            <p:growl id="msgs1" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataDivipolas" value="#{divipolaMB.allLazyDivipolas}"
+                         var="divipola" editable="true" ajax="true" rowKey="#{divipola.id}"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" widgetVar="divipolasTable"
+                         paginatorPosition="top" autoUpdate="true" style="heigth:100%" sortMode="single" sortOrder="ascending"
+                         sortBy="#{divipola.id}" lazy="true">
+                <f:facet name="header">Divipolas</f:facet>
+                <p:column headerText="Id" exportable="false">
+                    <h:outputText value="#{divipola.id}"/>
+                    <f:facet name="footer" style="left">
+                        <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                         icon="ui-icon-disk" ajax="false">
+                            <l:dataExporter source="dataDivipolas" fileType="csv" fileName="divipolas"
+                                            fileOptions="#{divipolaMB.csvExportOptions}"/>
+                        </p:commandButton>
+
+                    </f:facet>
+                </p:column>
+
+                <p:column headerText="Entidad" filterBy="#{divipola.entidad}"
+                          filterMatchMode="exact" filterOptions="#{divipolaMB.entidadOption}">
+                    <h:outputText value="#{divipola.entidad}"/>
+                </p:column>
+
+                <p:column headerText="Departamento" filterBy="#{divipola.departamento}"
+                          filterMatchMode="exact" filterOptions="#{divipolaMB.departamentoOption}">
+                    <h:outputText value="#{divipola.departamento}"/>
+                </p:column>
+
+                <p:column headerText="Municipio" >
+                    <h:outputText value="#{divipola.municipio}"/>
+                </p:column>
+
+                <p:column headerText="Divipola">
+                    <h:outputText value="#{divipola.divipola}"/>
+                </p:column>
+
+            </p:dataTable>
+            <!--<p:growl id="growl" life="10000" showDetail="true"/>-->
+        </h:form>
+
+        <p:separator/>
+        <h:form id="uploadForm1" enctype="multipart/form-data">
+            <p:fileUpload id="primeUpload1" value="#{uploaderMB.uploadFile}" mode="simple" ajax="false"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{uploaderMB.divipolaUpload}"/>
+        </h:form>
+        <p:tooltip id="uploadTip" for="uploadForm1"
+                   trackMouse="true">
+            <h:outputText value="Cargar archivo plano con la estructura:" escape="false"/>
+            <br/>
+            <h:outputText
+                    value="Entidad|Departamento|Municipio|Divipola"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value="REEMPLAZA TODOS LOS REGISTROS - Debe ir encabezado."
+                    escape="false"/>
+            <br/>
+        </p:tooltip>
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+        <p:separator/>
+
+    </ui:define>
+</ui:composition>
+</html>

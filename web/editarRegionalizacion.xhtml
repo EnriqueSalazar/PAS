@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Etapas"/>
+    </ui:define>
+
+    <f:metadata>
+        <!--
+                <f:event type="preRenderView" listener="#{pagoMB.reset}"/>
+        -->
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+        <!--*************** Empieza un formulario 1 ******************************-->
+        <h:form styleClass="form-horizontal" id="formRegionalizacion">
+            <p:dataTable id="dataRegionalizacions"
+                         value="#{regionalizacionFullMB.allLazyRegionalizacions}"
+                         var="regionalizacion" editable="true" ajax="true"
+                         royKey="#{regionalizacion.id}" scrollable="true" scrollWidth="100%"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" style="table-layout: auto" lazy="true">
+                <f:facet name="header">Beneficiarios y Valores </f:facet>
+
+
+                <p:columnGroup type="header">
+                    <p:row>
+
+
+                        <!--
+                                                &lt;!&ndash;                            <p:column headerText="Id" style="width:50px"/>
+                        -->
+                        <p:column headerText="Contrato" style="width:50px"/>
+
+                        <!--<p:column headerText="Departamento"/>-->
+                        <p:column headerText="Municipio"/>
+                        <p:column headerText="Valor"/>
+                        <p:column headerText="Beneficiarios"/>
+                    </p:row>
+                </p:columnGroup>
+
+                <!--     <p:column>
+                         <h:outputText value="#{regionalizacion.id}"/>
+                     </p:column>-->
+                <p:column>
+                    <h:outputText value="#{regionalizacion.parentId}"/>
+                </p:column>
+                <p:column>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{regionalizacion.departamento}  #{regionalizacion.municipio} "/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu id="divipolaR" value="#{regionalizacion.divipola}" style="width:100%">
+                                <f:selectItems value="#{divipolaMB.divipolaGroup}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{regionalizacion.valor}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputValor"
+                                         value="#{regionalizacion.valor}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column>
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{regionalizacion.beneficiarios}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputBeneficiarios"
+                                         value="#{regionalizacion.beneficiarios}"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                     icon="ui-icon-disk" ajax="false"
+                                     actionListener="#{regionalizacionFullMB.CSVExport}"/>
+                </f:facet>
+
+            </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade"
+                             hideEffect="explode">
+                <p:commandButton value="Si" type="button"
+                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button"
+                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
+
+        </h:form>
+
+        <p:separator/>
+        <h:form id="uploadForm1" enctype="multipart/form-data">
+            <p:fileUpload id="primeUpload1" value="#{uploaderMB.uploadFile}" mode="simple" ajax="false"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{uploaderMB.regionalizacionUpload}"/>
+
+        </h:form>
+        <p:tooltip id="uploadTip" for="uploadForm1"
+                   trackMouse="true">
+            <h:outputText value="Cargar archivo plano con la estructura:" escape="false"/>
+            <br/>
+            <h:outputText
+                    value="Contrato|Divipola|Valor|Beneficiarios"
+                    escape="false"/>
+            <br/>
+            <h:outputText
+                    value="REEMPLAZA TODOS LOS REGISTROS - Debe ir encabezado."
+                    escape="false"/>
+            <br/>
+        </p:tooltip>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+
+    </ui:define>
+</ui:composition>
+</html>

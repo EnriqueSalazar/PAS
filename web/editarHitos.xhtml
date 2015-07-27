@@ -1,0 +1,112 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:l="http://www.lapis.com/jsf/exporter">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="Editar Hitos"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{hitoMB.editar}"/>
+        <f:event type="preRenderView" listener="#{uploaderMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" autoUpdate="true"/>
+            <p:dataTable id="dataHitos" value="#{hitoMB.allLazyHitos}"
+                         var="hito" editable="true" ajax="true" royKey="#{hito.id}"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" widgetVar="hitosTable"
+                         paginatorPosition="top" autoUpdate="true" lazy="true">
+                <f:facet name="header">Hitos</f:facet>
+                <p:column headerText="Id" exportable="false">
+                    <h:outputText value="#{hito.id}"/>
+                    <f:facet name="footer" style="left">
+                        <!--  <p:commandButton value="Nuevo" id="ajax"
+                                           actionListener="#{hitoMB.buttonCrear}"
+                                           styleClass="ui-priority-primary" ajax="true"/>
+                      -->
+                        <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                         icon="ui-icon-disk" ajax="false" actionListener="#{hitoMB.CSVExport}"/>
+                    </f:facet>
+                </p:column>
+                <p:column headerText="Contrato">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{hito.contrato}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="parentId" value="#{hito.contrato}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Opción">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{hito.TCCpub}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputOpcion" value="#{hito.TCCpub}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Modalidad">
+                    <p:cellEditor>
+                        <f:facet name="filter">
+                            <p:selectCheckboxMenu label="Modalidad">
+                                <f:selectItems value="#{hitoMB.modalidadList}"/>
+                            </p:selectCheckboxMenu>
+                        </f:facet>
+                        <f:facet name="output">
+                            <h:outputText value="#{hito.contratoSig}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modelInputModalidad" value="#{hito.contratoSig}"
+                                         style="width:100%"/>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <!-- <p:column style="width:22px; center;" exportable="false">
+                     <p:rowEditor/>
+
+                 </p:column>
+                 <p:column style="width:30px; float:center" exportable="false">
+                     <p:commandButton icon="ui-icon-trash"
+                                      actionListener="#{hitoMB.buttonEliminar}" update="@form"
+                                      oncomplete="PF('hitosTable').filter();"/>
+
+                 </p:column>
+                 <p:ajax event="rowEdit" listener="#{hitoMB.buttonGuardar}"
+                         update=":form:msgs"/>
+                 <p:ajax event="rowEditCancel" listener="#{hitoMB.onRowCancel}"
+                         update=":form:msgs"/>
+ -->
+            </p:dataTable>
+            <p:growl id="growl" life="10000" showDetail="true"/>
+            <!-- <p:commandButton value="Reset"
+                              actionListener="#{hitoMB.buttonReset}"
+                              styleClass="ui-priority-primary" ajax="true"/>-->
+        </h:form>
+
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+        <h:panelGrid columns="1">
+            <p:button id="lnkHidden" value="Volver" outcome="editarSeguimiento.jsf">
+            </p:button>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
+</html>

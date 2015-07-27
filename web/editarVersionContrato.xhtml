@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/layout/template.xhtml">
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.editar.contrato']}" />
+	</ui:define>
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{contratoMB.idSelecionado}" />
+
+
+		<!--<f:event type="preRenderView" listener="#{pagoMB.reset}" />-->
+		<!--<f:event type="preRenderView" listener="#{accionMB.reset}" />-->
+		<!--<f:event type="preRenderView" listener="#{regionalizacionMB.reset}" />-->
+		<!--<f:event type="preRenderView" listener="#{listaMB.editar}"/>-->
+		<!--<f:event type="preRenderView" listener="#{divipolaMB.editar}"/>-->
+
+	</f:metadata>
+
+	<ui:define name="content">
+		<ui:include src="formVersionContrato.xhtml" />
+	</ui:define>
+</ui:composition>
+</html>

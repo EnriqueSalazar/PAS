@@ -1,0 +1,158 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:define name="pageTitle">
+        <h:outputText value="#{msg['page.title.lista.articulos']}"/>
+    </ui:define>
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{contratoMB.reset}"/>
+        <f:event type="preRenderView" listener="#{listaMB.editar}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <style>
+            .ui-datatable-odd {
+                background: none repeat scroll 0 0 #F2F5F9;
+            }
+        </style>
+        <!--        <p:outputPanel>
+                    <h2 class="title">
+                        <h:outputText value="Versiones de #{param.id}"/>
+                    </h2>
+                </p:outputPanel>-->
+        <h:form rendered="#{identityMB.loggedIn}">
+            <p:dataTable value="#{contratoMB.dataContratosVersion}"
+                         resizableColumns="true" var="contrato" selectionMode="single"
+                         selection="#{contrato}" rowKey="#{contrato.id}"
+                         rowSelectListener="editarVersionContrato" widgetVar="contratosTable"
+                         rows="10" paginator="true"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,25,50,100" style="heigth:100%">
+                <f:facet name="header">
+                    <h:outputText value="Versiones de #{param.id}"/>
+                </f:facet>
+                <!--     <p:column style="width:16px">
+                         <p:rowToggler/>
+                     </p:column>-->
+
+                <p:column headerText="Version de" style="width:66px">
+                    <p:link outcome="editarVersionContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.versionOf}"/>
+                        <f:param name="id" value="#{contrato.id}"/><f:param name="vof" value="#{param.id}"/>
+                    </p:link>
+
+                </p:column>
+
+                <p:column headerText="#{msg['label.contrato.descripcion']}"
+                        >
+                    <p:link outcome="editarVersionContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.descripcion}"/>
+                        <f:param name="id" value="#{contrato.id}"/><f:param name="vof" value="#{param.id}"/>
+                    </p:link>
+                    <!-- <f:facet name="footer" style="left">
+                         <p:commandButton value="CSV" styleClass="ui-priority-primary"
+                                          icon="ui-icon-disk" ajax="false" actionListener="#{contratoMB.CSVExport}"/>
+
+                     </f:facet>-->
+                </p:column>
+
+                <p:column headerText="#{msg['label.contrato.sector']}"
+                          style="text-align: center; width:128px;"
+                        >
+
+                    <p:link outcome="editarVersionContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.sector}"/>
+                        <f:param name="id" value="#{contrato.id}"/><f:param name="vof" value="#{param.id}"/>
+                    </p:link>
+                </p:column>
+
+                <p:column headerText="Control de Cambio"
+                          style="text-align: center; width:124px"
+                        >
+                    <p:link outcome="editarVersionContrato"
+                            style="display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.controlCambio}"/>
+                        <f:param name="id" value="#{contrato.id}"/><f:param name="vof" value="#{param.id}"/>
+                    </p:link>
+                </p:column>
+
+
+                <p:column headerText="#{msg['label.contrato.duracion']}"
+                          style="width:77px">
+                    <p:link outcome="editarVersionContrato"
+                            style="text-align: right; display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.duracion}"/>
+                        <f:param name="id" value="#{contrato.id}"/><f:param name="vof" value="#{param.id}"/>
+                    </p:link>
+                </p:column>
+
+
+                <p:column headerText="#{msg['label.contrato.modalidad']}"
+                          style="width:135px">
+                    <p:link outcome="editarVersionContrato"
+                            style="text-align: center; display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.modalidad}"/>
+                        <f:param name="id" value="#{contrato.id}"/><f:param name="vof" value="#{param.id}"/>
+                    </p:link>
+                </p:column>
+
+
+                <!--                <p:column headerText="#{msg['label.contrato.fechaRef']}"
+                                          style="width:182px">
+                                    <p:link outcome="editarVersionContrato"
+                                            style="text-align: center; display:block;text-decoration: none;">
+                                        <h:outputText value="#{contrato.referencia}"/>
+                                                                <f:param name="id" value="#{contrato.id}"/> <f:param name="vof" value="#{param.id}"/>
+                                    </p:link>
+                                </p:column>-->
+
+
+                <p:column headerText="Creado" style="width:77px">
+                    <p:link outcome="editarVersionContrato"
+                            style="text-align: center; display:block;text-decoration: none;">
+                        <h:outputText value="#{contrato.timeStamp}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                        <f:param name="id" value="#{contrato.id}"/><f:param name="vof" value="#{param.id}"/>
+                    </p:link>
+                </p:column>
+
+
+                <p:rowExpansion>
+                    <!-- 					<p:inputTextarea rows="4" autoResize="false" readonly="true" -->
+                    <!-- 						value="#{contrato.descripcion}" style="width:100%" /> -->
+                    <h:outputText value="#{contrato.descripcion}"/>
+
+                </p:rowExpansion>
+
+            </p:dataTable>
+
+
+            <h:panelGrid columns="1">
+                <p:button id="lnkHidden" value="Ir a #{param.id}" outcome="editarContrato.jsf">
+                    <f:param name="id" value="#{param.id}"/>
+                </p:button>
+            </h:panelGrid>
+
+        </h:form>
+        <p:separator/>
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+
+        <p:separator/>
+        <!--
+                <h:messages/>
+        -->
+    </ui:define>
+</ui:composition>
+</html>
